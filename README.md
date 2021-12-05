@@ -11,6 +11,12 @@
 ## Description 
 Simple project to store notes in json file. <br /> 
 Functions include: Add New Note, Update Note, Delete Note <br /> 
+![Final Image](./public/assets/images/note-taker.png)
+
+Working URL - https://lholgate-note-taker.herokuapp.com/
+
+
+GitHub URL - https://github.com/lholgate/note-taker
 ## Installation 
 Download code from GIT <br /> 
 run "npm install" <br /> 
