@@ -1,81 +1,73 @@
 const fs = require('fs');
-const { filterByQuery, findById, createNewNote, validateNote } = require('../lib/notes.js');
-const notes = require('../db/db');
+const { createNote, updateNote, findNote, deleteNote } = require('../lib/notes.js');
+const notes = [];
 
 jest.mock('fs');
 
 test('creates an note object', () => {
-  const note = createNewNote({ name: 'Darlene', id: 'jhgdja3ng2' }, notes);
+  const note = createNote({ title: 'test 1', text: 'test text' }, notes);
 
-  expect(note.name).toBe('Darlene');
-  expect(note.id).toBe('jhgdja3ng2');
+  expect(note.title).toBe('test 1');
+  expect(note.text).toBe('test text');
+  expect(note.id).not.toBeNull;
 });
 
-test('filters by query', () => {
+test('find note by id', () => {
   const startingNotes = [
     {
       id: '3',
-      name: 'Erica',
-      species: 'gorilla',
-      diet: 'omnivore',
-      personalityTraits: ['quirky', 'rash']
+      title: 'test 3',
+      text: 'test text 3'
     },
     {
       id: '4',
-      name: 'Noel',
-      species: 'bear',
-      diet: 'carnivore',
-      personalityTraits: ['impish', 'sassy', 'brave']
+      title: 'test 4',
+      species: 'test text 4'
     }
   ];
 
-  const updatedNotes = filterByQuery({ species: 'gorilla' }, startingNotes);
+  const index = findNote(3, startingNotes);
 
-  expect(updatedNotes.length).toEqual(1);
+  expect(index).toEqual(0);
 });
 
-test('finds by id', () => {
-  const startingNotes = [
+
+test('delete note by id', () => {
+  const notes = [
     {
       id: '3',
-      name: 'Erica',
-      species: 'gorilla',
-      diet: 'omnivore',
-      personalityTraits: ['quirky', 'rash']
+      title: 'test 3',
+      text: 'test text 3'
     },
     {
       id: '4',
-      name: 'Noel',
-      species: 'bear',
-      diet: 'carnivore',
-      personalityTraits: ['impish', 'sassy', 'brave']
+      title: 'test 4',
+      species: 'test text 4'
     }
   ];
 
-  const result = findById('3', startingNotes);
+  const result = deleteNote(3, notes);
 
-  expect(result.name).toBe('Erica');
+  expect(notes.length).toBe(1);
+
 });
 
-test('validates personality traits', () => {
-  const note = {
-    id: '3',
-    name: 'Erica',
-    species: 'gorilla',
-    diet: 'omnivore',
-    personalityTraits: ['quirky', 'rash']
-  };
+test('update note by id', () => {
+  const notes = [
+    {
+      id: '3',
+      title: 'test 3',
+      text: 'test text 3'
+    }
+  ];
 
-  const invalidNote = {
-    id: '3',
-    name: 'Erica',
-    species: 'gorilla',
-    diet: 'omnivore'
-  };
+  const noteUpdate = {id: '3',
+                      title: 'updated title',
+                      text: 'updated text'};
 
-  const result = validateNote(note);
-  const result2 = validateNote(invalidNote);
+  const result = updateNote(noteUpdate, notes);
 
-  expect(result).toBe(true);
-  expect(result2).toBe(false);
+  expect(notes[0].title).toBe('updated title');
+  expect(notes[0].text).toBe('updated text');
+
 });
