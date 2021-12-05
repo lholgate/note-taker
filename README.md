@@ -20,7 +20,7 @@ Applciation deployed at - https://lholgate-note-taker.herokuapp.com/ <br />
 ## License 
 ![badge](https://img.shields.io/badge/license-MIT-brightgreen)
 <br />This application is covered by the MIT license.
-<br />## Contributing 
+## Contributing 
 Bootcamp starter code <br /> 
 Lewis Holgate <br /> 
 ## Tests 
